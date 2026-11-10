@@ -1,0 +1,10 @@
+---
+// The one main action of the page: a call. Variants: accent (on paper), light (on the blue field), plain (inline text).
+import Icon from "./Icon.astro";
+interface Props { href: string; variant?: "accent" | "light" | "outline" | "outline-light"; size?: "md" | "lg"; class?: string; rec?: string; icon?: boolean; }
+const { href, variant = "accent", size = "md", class: cls, rec, icon = true } = Astro.props;
+---
+<a class:list={["btn", `btn--${variant}`, `btn--${size}`, cls]} href={href} data-rec={rec}>
+  {icon && <Icon name="phone" />}
+  <span class="btn__label"><slot /></span>
+</a>

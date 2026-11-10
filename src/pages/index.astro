@@ -1,0 +1,303 @@
+---
+// Homepage of Максі СТО (MakSi центр) — design/concept.md §8, ux/demo-home.md.
+import Base from "../layouts/Base.astro";
+import Section from "../components/Section.astro";
+import FutureLink from "../components/FutureLink.astro";
+import CallLink from "../components/CallLink.astro";
+import Icon from "../components/Icon.astro";
+import "../styles/site.css";
+import {
+  PHONE, PHONE_BUYOUT, FACEBOOK, ADDRESSES, HOURS_ROWS, NAV, SYSTEMS, KEY_PRICES, BRANDS, STEPS, PRECHECK, fmtPrice,
+} from "../data/home";
+
+const NOTE = "Розділ у розробці";
+const asset = (p: string) => `${import.meta.env.BASE_URL.replace(/\/$/, "")}/${p}`;
+const title = "СТО у Львові: діагностика і ремонт авто — Максі СТО";
+const description = "Діагностика, ТО і ремонт легкових авто на вул. Зеленій 115а і Стрийській 45 у Львові. Ціну роботи називаємо до початку. Тел. 067 611 1499.";
+
+const hoursSpec = [
+  { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },
+  { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:00", closes: "15:00" },
+];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  name: "Максі СТО",
+  alternateName: "MakSi центр",
+  telephone: "+380676111499",
+  sameAs: [FACEBOOK],
+  areaServed: { "@type": "City", name: "Львів" },
+  department: [
+    { "@type": "AutoRepair", name: "Максі СТО — вул. Зелена, 115а", telephone: "+380676111499", address: { "@type": "PostalAddress", streetAddress: "вул. Зелена, 115а", addressLocality: "Львів", addressCountry: "UA" }, openingHoursSpecification: hoursSpec },
+    { "@type": "AutoRepair", name: "Максі СТО — вул. Стрийська, 45", telephone: "+380676111499", address: { "@type": "PostalAddress", streetAddress: "вул. Стрийська, 45", addressLocality: "Львів", addressCountry: "UA" }, openingHoursSpecification: hoursSpec },
+  ],
+};
+const scheduleText = "Пн–Пт 9:00–18:00, Сб 9:00–15:00, Нд вихідний";
+---
+<Base lang="uk" title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="preload" href={asset("fonts/commissioner-cyrillic-flar-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={asset("fonts/wix-madefor-text-cyrillic-400-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={asset("fonts/wix-madefor-text-cyrillic-600-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href={asset("logo-maksi.png")} type="image/png" />
+    <meta name="theme-color" content="#0B2D52" />
+    <script type="application/ld+json" data-rec="R-202" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <header class="site-header" slot="header">
+    <div class="container site-header__row">
+      <a class="logo" href="#top"><img src={asset("logo-maksi.png")} width="266" height="70" alt="MakSi центр — на початок сторінки" /></a>
+      <nav class="site-nav" aria-label="Розділи сторінки">
+        <ul>{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+      </nav>
+      <a class="site-header__phone" href={PHONE.href} data-rec="R-103">{PHONE.label}</a>
+      <CallLink href={PHONE.href} class="site-header__call" rec="R-103"><span class="call-label-long">Подзвонити</span></CallLink>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-rec="R-310">
+        <Icon name="menu" class="menu-toggle__open" /><Icon name="close" class="menu-toggle__close" /><span>Меню</span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" hidden>
+      <div class="container mobile-menu__inner">
+        <nav aria-label="Меню">
+          <ul class="mobile-menu__nav plain">{NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul>
+        </nav>
+        <div class="mobile-menu__facts">
+          <a class="mobile-menu__phone" href={PHONE.href}>{PHONE.label}</a>
+          <ul class="plain">{ADDRESSES.map((a) => <li>{a.street}</li>)}</ul>
+          <p>{scheduleText}</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. Перший екран -->
+  <Section id="hero" rec="R-101,R-102,R-301,R-302,R-303,R-305,R-308" class="hero">
+    <div class="container hero__grid">
+      <div class="hero__main">
+        <h1 class="hero__title" data-rec="R-201">Діагностика і ремонт <span class="hero__line">легкових авто у Львові</span></h1>
+        <p class="hero__lead">Ціну роботи називаємо до початку — без непогоджених робіт.</p>
+        <div class="hero__actions">
+          <CallLink href={PHONE.href} variant="light" size="lg" rec="R-103">Подзвонити <span class="num">{PHONE.label}</span></CallLink>
+          <a class="link link--on-field" href="#contacts">Як доїхати</a>
+        </div>
+      </div>
+      <div class="hero__where">
+        <h2 class="visually-hidden">Адреси і графік</h2>
+        <ul class="hero__addr plain">{ADDRESSES.map((a) => <li>{a.street}</li>)}</ul>
+        <p class="hours-static">{scheduleText}</p>
+        <p class="hours-live" data-hours hidden><span data-hours-today></span><br /><span class="status" data-hours-status></span></p>
+      </div>
+    </div>
+    <nav class="systems" aria-label="Системи авто" data-systems>
+      <div class="container systems__wrap">
+        <ul class="systems__list plain">
+          {SYSTEMS.map((s, i) => (
+            <li><a class:list={["systems__item", { "is-current": i === 0 }]} href={`#sys-${s.id}`} data-system={s.id}>{s.short}</a></li>
+          ))}
+          <li class="systems__all"><FutureLink note={NOTE} class="systems__item systems__item--future">Усі послуги</FutureLink></li>
+        </ul>
+        <span class="systems__marker" aria-hidden="true" data-marker></span>
+      </div>
+    </nav>
+  </Section>
+
+  <!-- 2. Послуги: покажчик систем -->
+  <Section id="services" rec="R-104,R-309" class="services">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Що з вашим авто</h2>
+        <p>Оберіть систему — покажемо, які роботи виконуємо і скільки вони коштують.</p>
+      </div>
+      <ul class="sys-index plain">
+        {SYSTEMS.map((s, i) => (
+          <li class="sys" id={`sys-${s.id}`} data-sys={s.id} data-open={i === 0 ? "" : undefined}>
+            <h3 class="sys__head">
+              <button class="sys__btn" type="button" id={`sys-btn-${s.id}`} aria-expanded={i === 0 ? "true" : "false"} aria-controls={`sys-panel-${s.id}`}>
+                <span class="sys__name">{s.name}</span>
+                <span class="sys__toggle" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="sys__panel" id={`sys-panel-${s.id}`} role="region" aria-labelledby={`sys-btn-${s.id}`}>
+              <div class="sys__clip">
+                <div class="sys__body">
+                  <div class="sys__works">
+                    <p class="sys__caption">Роботи</p>
+                    <ul class="plain">{s.works.map((w) => <li><FutureLink note={NOTE}>{w}</FutureLink></li>)}</ul>
+                  </div>
+                  <div class="sys__prices">
+                    {s.prices.length > 0 && (
+                      <ul class="plain">
+                        {s.prices.map((p) => (
+                          <li><span class="sys__price"><span class="from">від</span> {fmtPrice(p.from)} <span class="cur">грн</span></span><span class="sys__price-name">{p.name}</span></li>
+                        ))}
+                      </ul>
+                    )}
+                    {s.note && <p class="sys__note">{s.note}</p>}
+                    <CallLink href={PHONE.href} variant="outline" rec="R-103">Подзвонити {PHONE.label}</CallLink>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="services__more"><FutureLink note={NOTE}>Усі послуги</FutureLink></p>
+    </div>
+  </Section>
+
+  <!-- 3. Ціни -->
+  <Section id="prices" rec="R-105" class="prices">
+    <div class="container prices__grid">
+      <div class="prices__head">
+        <h2>Ціни на роботи — від</h2>
+        <p class="prices__lead">Ціну роботи називаємо до початку — без непогоджених робіт.</p>
+        <p class="prices__fine">Ціни «від» — з прайсу сервісу. Точну суму для вашого авто назвемо після огляду.</p>
+        <div class="prices__actions">
+          <CallLink href={PHONE.href} rec="R-103">Подзвонити {PHONE.label}</CallLink>
+          <FutureLink note={NOTE}>Повний прайс — 72 позиції</FutureLink>
+        </div>
+      </div>
+      <ul class="price-list plain">
+        {KEY_PRICES.map((p) => (
+          <li class="price">
+            <span class="price__value"><span class="from">від</span> {fmtPrice(p.from)} <span class="cur">грн</span></span>
+            <span class="price__name">{p.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <!-- 4. Марки -->
+  <Section id="brands" class="brands">
+    <div class="container brands__grid">
+      <h2>Марки, з якими працюємо</h2>
+      <ul class="brand-line plain">{BRANDS.map((b) => <li>{b}</li>)}</ul>
+      <p class="brands__other">Вашої марки немає у списку? <a class="link" href={PHONE.href}>Уточніть телефоном: {PHONE.label}</a></p>
+    </div>
+  </Section>
+
+  <!-- 5. Як працюємо -->
+  <Section id="approach" rec="R-107" class="approach">
+    <div class="container">
+      <div class="sec-head sec-head--field">
+        <h2>Від дзвінка до контрольного дзвінка через 14 днів</h2>
+        <p>Так ми працюємо з кожним авто — сервіс не закінчується на видачі ключів.</p>
+      </div>
+      <ol class="timeline plain" data-reveal>
+        {STEPS.map((s, i) => (
+          <li class:list={["timeline__step", { "timeline__step--last": i === STEPS.length - 1 }]} style={`--i:${i}`}>
+            <span class="timeline__mark">{s.mark}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="approach__guarantee">Гарантія на виконані роботи — умови назвемо телефоном.</p>
+    </div>
+  </Section>
+
+  <!-- 6. Перевірка перед купівлею і викуп -->
+  <Section id="used-cars" class="used">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Перевірка перед купівлею і викуп авто</h2>
+      </div>
+      <div class="used__grid">
+        <article class="used__card used__card--check">
+          <h3>Перевірка авто перед купівлею</h3>
+          <p>Збираєтеся купити авто з пробігом? Перевіримо його до угоди:</p>
+          <ul class="used__list">{PRECHECK.map((p) => <li>{p}</li>)}</ul>
+          <div class="used__actions">
+            <CallLink href={PHONE.href}>Записатися на перевірку</CallLink>
+            <FutureLink note={NOTE}>Детальніше про перевірку</FutureLink>
+          </div>
+        </article>
+        <article class="used__card used__card--buyout">
+          <h3>Викуп авто, зокрема після ДТП і не на ходу</h3>
+          <p>Купуємо вживані авто — і ті, що після ДТП або не на ходу. Для викупу окремий номер:</p>
+          <a class="used__phone" href={PHONE_BUYOUT.href}>{PHONE_BUYOUT.label}</a>
+          <div class="used__actions">
+            <CallLink href={PHONE_BUYOUT.href} variant="outline-light">Подзвонити щодо викупу</CallLink>
+            <FutureLink note={NOTE}>Надіслати фото авто</FutureLink>
+          </div>
+        </article>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 7. Контакти -->
+  <Section id="contacts" rec="R-106" class="contacts">
+    <div class="container">
+      <div class="sec-head">
+        <h2>Дві адреси у Львові</h2>
+      </div>
+      <div class="contacts__grid">
+        {ADDRESSES.map((a) => (
+          <article class="addr">
+            <div class="addr__photo" role="img" aria-label={`Місце для фото фасаду СТО: ${a.street}`}>
+              <span>Зображення клієнта: фасад, {a.short}</span>
+            </div>
+            <h3 class="addr__street">{a.street}</h3>
+            <p class="addr__city">{a.city}</p>
+            <div class="addr__actions">
+              <a class="btn btn--accent btn--md" href={a.maps} target="_blank" rel="noopener">
+                <Icon name="route" /><span class="btn__label">Маршрут<span class="visually-hidden"> (Google Карти, нове вікно)</span></span>
+              </a>
+              <CallLink href={PHONE.href} variant="outline">Подзвонити</CallLink>
+            </div>
+          </article>
+        ))}
+        <div class="hours">
+          <h3>Графік роботи</h3>
+          <table class="hours__table">
+            <tbody>{HOURS_ROWS.map((r) => <tr><th scope="row">{r.days}</th><td>{r.time}</td></tr>)}</tbody>
+          </table>
+          <p class="hours__status" data-hours hidden><span data-hours-today></span><br /><span class="status" data-hours-status></span></p>
+          <p class="hours__phone"><a href={PHONE.href}>{PHONE.label}</a></p>
+          <p><a class="link fb" data-rec="R-411" href={FACEBOOK} target="_blank" rel="noopener"><Icon name="facebook" />Ми у Facebook<span class="visually-hidden"> (нове вікно)</span></a></p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <footer class="site-footer" slot="footer">
+    <div class="container site-footer__grid">
+      <div class="site-footer__brand">
+        <a class="logo" href="#top"><img src={asset("logo-maksi.png")} width="266" height="70" alt="MakSi центр — на початок сторінки" loading="lazy" /></a>
+        <p class="site-footer__phone"><a href={PHONE.href}>{PHONE.label}</a></p>
+        <CallLink href={PHONE.href}>Подзвонити</CallLink>
+      </div>
+      <div class="site-footer__where">
+        <h2 class="site-footer__h">Адреси</h2>
+        <ul class="plain">{ADDRESSES.map((a) => <li>{a.street}, {a.city}</li>)}</ul>
+        <h2 class="site-footer__h">Графік</h2>
+        <ul class="plain">{HOURS_ROWS.map((r) => <li>{r.days}: {r.time}</li>)}</ul>
+      </div>
+      <nav class="site-footer__nav" aria-label="Розділи сторінки (низ)">
+        <ul class="plain">
+          {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href={FACEBOOK} target="_blank" rel="noopener">Facebook<span class="visually-hidden"> (нове вікно)</span></a></li>
+        </ul>
+        <ul class="plain site-footer__future">
+          <li><FutureLink note={NOTE}>Про нас</FutureLink></li>
+          <li><FutureLink note={NOTE}>Відгуки</FutureLink></li>
+          <li><FutureLink note={NOTE}>Запитання</FutureLink></li>
+          <li><FutureLink note={NOTE}>Політика конфіденційності</FutureLink></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container site-footer__base">
+      <p>Максі СТО — MakSi центр, незалежна СТО у Львові</p>
+    </div>
+  </footer>
+
+  <div class="callbar" slot="footer" data-rec="R-103,R-110">
+    <a class="callbar__call" href={PHONE.href}><Icon name="phone" />Подзвонити</a>
+    <a class="callbar__route" href="#contacts"><Icon name="route" />Маршрут</a>
+  </div>
+</Base>
+
+<script>
+  import "../scripts/home.ts";
+</script>

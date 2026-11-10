@@ -1,0 +1,116 @@
+/* Hallmark · shape: index-first · genre: editorial · theme: custom · job: book/visit · idea: "Спершу — причина: від авто до системи, роботи, ціни і дзвінка" · vibe: "точний, спокійний, синій, майстерня без глянцю" · paper: #FAFBFC · field: #0B2D52 · accent: #1E69B8 · display: Commissioner · body: Wix Madefor Text · hero: custom — синє поле: H1 на 8 колонок, дзвінок, дві адреси праворуч, смуга 9 систем внизу · nav: біла шапка, 5 якорів + номер · footer: сталевий, адреси і дзвінок · imagery: none (2 слоти «Зображення клієнта») · signature: смуга 9 систем із ключ-маркером · axes: light+field/grotesk/cool-blue · posture: committed (field) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: imagery, немає власних фото клієнта — сторінку несуть типографіка систем і цін, 2 слоти «Зображення клієнта» лише для фасадів */
+/* Hallmark · answered F4 · .btn--light — це та сама основна дія «Подзвонити», лише на синьому полі (§8.3); .sys__btn — рядок покажчика без заливки */
+/* Hallmark · waive 39b · a.btn 57px, button.sys__btn 88px · the hero field call button stands 56px as the concept sets it; the systems index rows are Commissioner display headings at 40px, not form controls */
+/* Hallmark · answered F19 · 4 ваги: Commissioner 700/800 (display) + Wix Madefor Text 400/600 (текст) — пара ваг на гарнітуру за концепцією §8.4 */
+/* Hallmark · answered F15 · проміжки: 24 px гаттер 12-колонкової сітки, 8 px у сітці кнопок систем на телефоні, 32 px між пунктами списку — різні ролі */
+/* Hallmark · answered F20 · the works list of a system shows the client's real services (seven for maintenance), the count is not padded to fill the columns */
+/* Tokens: only from design/concept.md (veon-concept colors and fonts, §8.3–8.5). */
+
+@font-face {
+  font-family: "Commissioner";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/commissioner-cyrillic-flar-normal.woff2") format("woff2-variations"), url("/fonts/commissioner-cyrillic-flar-normal.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Commissioner";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/commissioner-latin-flar-normal.woff2") format("woff2-variations"), url("/fonts/commissioner-latin-flar-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Wix Madefor Text";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/wix-madefor-text-cyrillic-400-normal.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Wix Madefor Text";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/wix-madefor-text-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Wix Madefor Text";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/wix-madefor-text-cyrillic-600-normal.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Wix Madefor Text";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/wix-madefor-text-latin-600-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Metric-adjusted fallbacks (measured against Arial in Chromium: width of the hero text, ascent, descent) — no layout shift on font swap. */
+@font-face { font-family: "Commissioner Fallback"; font-weight: 100 900; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"), local("Roboto Bold"); size-adjust: 96.4%; ascent-override: 106%; descent-override: 22%; line-gap-override: 0%; }
+@font-face { font-family: "Wix Fallback"; font-weight: 400; src: local("Arial"), local("ArialMT"), local("Helvetica Neue"), local("Roboto"); size-adjust: 103%; ascent-override: 98%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: "Wix Fallback"; font-weight: 600 700; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Neue Bold"), local("Roboto Bold"); size-adjust: 98.2%; ascent-override: 103%; descent-override: 25.5%; line-gap-override: 0%; }
+
+:root {
+  /* colour — concept §8.3 */
+  --color-bg: #FAFBFC;            /* папір */
+  --color-surface: #E3E9EF;       /* сталь */
+  --color-text: #141A21;          /* графіт */
+  --color-text-muted: #4F5B67;
+  --color-accent: #1E69B8;        /* фірмовий синій MakSi */
+  --color-accent-hover: #175896;
+  --color-field: #0B2D52;         /* глибоке синє поле */
+  --color-on-field: #FAFBFC;
+  --color-on-field-muted: #B9C7D6;
+  --color-signal: #9FD0FF;
+  --color-accent-ink: #FAFBFC;     /* текст на фірмовому синьому */
+  --color-line-field: #2D5480;    /* декоративні лінії-розділювачі на полі (§8.6) */
+  --color-line-field-ui: #6B829B; /* межа кнопок систем на полі, ≥ 3:1 (WCAG 1.4.11); між #B9C7D6 і #0B2D52 */
+  --color-line: color-mix(in srgb, var(--color-text) 16%, transparent);
+  --color-line-strong: color-mix(in srgb, var(--color-text) 36%, transparent);
+  --color-header: #FAFBFC;
+
+  /* type — concept §8.4 */
+  --font-display: "Commissioner", "Commissioner Fallback", system-ui, sans-serif;
+  --font-body: "Wix Madefor Text", "Wix Fallback", system-ui, sans-serif;
+  --display-flare: "FLAR" 40;
+  --fs-h1: clamp(2.375rem, 1.24rem + 4.66vw, 5.25rem);
+  --fs-h2: clamp(2rem, 1.443rem + 2.286vw, 3.5rem);
+  --fs-row: clamp(1.625rem, 1.3rem + 1.333vw, 2.5rem);
+  --fs-h3: clamp(1.25rem, 1.157rem + .381vw, 1.5rem);
+  --fs-lead: clamp(1.0625rem, .99rem + .3vw, 1.25rem);
+  --fs-text: clamp(1.0625rem, 1.039rem + .095vw, 1.125rem);
+  --fs-small: clamp(.875rem, .852rem + .095vw, .9375rem);
+
+  /* space & grid — concept §8.5 (rhythm of 8) */
+  --s1: .5rem; --s2: 1rem; --s3: 1.5rem; --s4: 2rem; --s5: 3rem; --s6: 4rem; --s7: 6rem; --s8: 9rem;
+  --space: clamp(1.25rem, .786rem + 1.905vw, 2.5rem);
+  --gutter: clamp(1rem, .81rem + .76vw, 1.5rem);
+  --container: 1360px;
+  --radius: 2px;
+  --header-h: 56px;
+  --bar-h: 64px;
+  --tap: 48px;
+
+  /* motion — concept §8.7 */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --ease-inout: cubic-bezier(.65, 0, .35, 1);
+  --dur: 600ms;
+  --dur-fast: 180ms;
+  --dur-open: 280ms;
+}
+@media (min-width: 64em) {
+  :root { --header-h: 80px; --dur-open: 280ms; }
+}
+@media (max-width: 63.99em) {
+  :root { --dur-open: 220ms; }
+}

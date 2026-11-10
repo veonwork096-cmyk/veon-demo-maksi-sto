@@ -1,0 +1,20 @@
+{
+  "name": "veon-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "postbuild": "node scripts/veon-event.mjs demo_build"
+  },
+  "engines": {
+    "node": ">=18.20.8"
+  },
+  "devDependencies": {
+    "@fontsource-variable/commissioner": "^5.3.0",
+    "@fontsource/wix-madefor-text": "^5.3.0",
+    "astro": "5.14.1"
+  }
+}
